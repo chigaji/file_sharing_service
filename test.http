@@ -1,0 +1,51 @@
+
+@endpoint=http://127.0.0.1:8080
+
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDU3NDE1ODMsInVzZXJfaWQiOjZ9.ZUNdpSosOFU-_xxn0e1JLwpY9E0qBIs1_RQ2MrAObAg
+
+GET {{endpoint}}/ HTTP/1.1
+Content-Content-Type: application/json
+
+###
+
+#################################################
+#            USER REGISTRATION                  #
+################################################
+POST {{endpoint}}/register HTTP/1.1
+Content-Type: application/json
+    
+     {
+        "username": "minju",
+        "password": "minju1!"
+    }
+###
+
+#################################################
+#         USER LOGIN                           #
+################################################
+POST {{endpoint}}/login HTTP/1.1
+Content-Type: application/json
+    
+   
+    {
+        "username": "minju",
+        "password": "minju1!"
+    }
+
+#***************************************************************************
+
+#################################################
+#          GET ALL EXPENSES                     #
+################################################
+GET {{endpoint}}/api/v1/expenses HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}} 
+
+#################################################
+#          GET EXPENSE BY ID                    #
+################################################
+GET {{endpoint}}/api/v1/expenses/3 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+

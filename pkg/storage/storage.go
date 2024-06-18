@@ -5,6 +5,7 @@ import (
 
 	"github.com/chigaji/file_sharing_service/pkg/models"
 	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
 )
 
 var db *sqlx.DB
@@ -13,7 +14,8 @@ func InitDB() error {
 
 	var err error
 
-	db, err = sqlx.Connect("postres", "user=admin dbname=file_sharing_db sslmode=disable")
+	// db, err = sqlx.Connect("postgres", "user=admin dbname=file_sharing_db sslmode=disable")
+	db, err = sqlx.Connect("postgres", "postgres://admin:admin1!@localhost:5432/file_sharing_db?sslmode=disable")
 
 	if err != nil {
 		return err
@@ -39,7 +41,10 @@ func InitDB() error {
 
 	return nil
 }
-
+func SaveUser(user models.User) error {
+	_, err := db.Exec("INSERT INTO users (username, password) VALUES ($1, $2)", user.Username, user.Password)
+	return err
+}
 func SaveFileData(fileID string, filename string, expiry time.Time) error {
 
 	_, err := db.Exec("INSERT INTO file (id, filename, expiry) VALUES ($1, $2, $3)", fileID, filename, expiry)

@@ -1,7 +1,7 @@
 .PHONY: run stop exec_db migrate test 
 run: 
 	docker-compose up -d
-# go run cmd/main.go
+	go run cmd/main.go
 
 # stop the application (db for now)
 stop:
